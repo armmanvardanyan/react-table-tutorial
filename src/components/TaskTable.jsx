@@ -35,9 +35,8 @@ export default function TaskTable() {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    columnResizeMode: "onChange",
   });
-
-  console.log(table.getRowModel());
 
   return (
     <Box>
@@ -47,6 +46,13 @@ export default function TaskTable() {
             {headerGroup.headers.map((header) => (
               <Box key={header.id} className="th" w={header.getSize()}>
                 {header.column.columnDef.header}
+                <Box
+                  onMouseDown={header.getResizeHandler()}
+                  onTouchStart={header.getResizeHandler()}
+                  className={`
+                  resizer ${header.column.getIsResizing() ? "isResizing" : ""}
+                `}
+                />
               </Box>
             ))}
           </Box>
